@@ -7,8 +7,9 @@ from openpyxl import load_workbook
 import smtplib
 from tkcalendar import DateEntry
 
+#------------mail sending part works only for gmail users----------------
 
-path = r"enter the path to load entries \logs.xlsx"
+path = r"logs.xlsx"
 myaddress = "enter your email id"
 password = "enter your password"
 
@@ -49,7 +50,7 @@ def submit():
             print('done')
             d = [fname, fphone, feid , fbt, fsex, fdob, fuid]
             ws.append(d)
-            wb.save("demo.xlsx")
+            wb.save("logs.xlsx")
             clear()
 
             submit_label = Label(tk, text="DEAILS RECORDED" , font =('Times New Roman',  '15'), bg='#f5bdb3')
@@ -95,8 +96,13 @@ def mail():
                     msg = f'subject: {subject}\n\n{body}'
                     smtp.sendmail(myadd, new, msg)
                     break
+            except smtplib.SMTPAuthenticationError:
+                tkinter.messagebox.showerror("ERROR" , "MAIL NOT DELIVERED!!!\nCheck your Login Credentials Properly.\n"
+                      "If still the error persists follow the following steps given below:\n"
+                      "login to gmail acc<<manage account<< security<< Less secure app access<< turn it on.")
+                break
             except Exception:
-                tkinter.messagebox.showerror("Error", "NO INTERNET CONNECTION")
+                tkinter.messagebox.showerror("Error", "An unnatural exception occurred try checking your internet connection..restart the program")
                 break
     else:
         tkinter.messagebox.showerror("Error", "INCORRECT UID")
