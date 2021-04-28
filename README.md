@@ -1,5 +1,5 @@
 install the required pacages:
-                             pip install -r requirement.txt
+                             pip install -r requirements.txt
       
 open the code:
               fill in the path where you want your excel file to be loaded
